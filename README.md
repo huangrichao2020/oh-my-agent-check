@@ -1,5 +1,10 @@
 # oh-my-agent-check
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-ff6a8b.svg?style=flat-square)](./LICENSE)
+![Open Source](https://img.shields.io/badge/Open%20Source-Yes-f6c445?style=flat-square)
+[![English](https://img.shields.io/badge/English-README-111827?style=flat-square)](./README.md)
+[![简体中文](https://img.shields.io/badge/简体中文-README-ff8fb2?style=flat-square)](./README.zh-CN.md)
+
 Brutally strict, JSON-first agent-wrapper audit skill.
 
 ![oh-my-agent-check cover](./assets/cover-banner.svg)
