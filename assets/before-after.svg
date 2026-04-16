@@ -1,6 +1,6 @@
-<svg width="1400" height="760" viewBox="0 0 1400 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1400" height="980" viewBox="0 0 1400 980" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="60" y1="40" x2="1340" y2="720" gradientUnits="userSpaceOnUse">
+    <linearGradient id="bg" x1="60" y1="40" x2="1340" y2="940" gradientUnits="userSpaceOnUse">
       <stop stop-color="#FFF8FB"/>
       <stop offset="1" stop-color="#FFFDEE"/>
     </linearGradient>
@@ -8,39 +8,33 @@
       .title { font: 700 36px 'Inter', 'Segoe UI', sans-serif; fill: #341A28; }
       .sub { font: 500 18px 'Inter', 'Segoe UI', sans-serif; fill: #745262; }
       .head { font: 700 22px 'Inter', 'Segoe UI', sans-serif; fill: #4E2B38; }
-      .body { font: 500 15px 'Inter', 'Segoe UI', sans-serif; fill: #6D4D5C; }
+      .body { font: 500 16px 'Inter', 'Segoe UI', sans-serif; fill: #6D4D5C; }
       .good { font: 700 14px 'Inter', 'Segoe UI', sans-serif; fill: #FFFFFF; letter-spacing: 0.07em; text-transform: uppercase; }
       .bad { font: 700 14px 'Inter', 'Segoe UI', sans-serif; fill: #8B3A52; letter-spacing: 0.07em; text-transform: uppercase; }
     </style>
   </defs>
 
-  <rect x="24" y="24" width="1352" height="712" rx="34" fill="url(#bg)"/>
-  <text x="86" y="102" class="title">Before / After</text>
-  <text x="86" y="138" class="sub">Why this is not just another "review" prompt with sharper wording.</text>
+  <rect x="24" y="24" width="1352" height="932" rx="34" fill="url(#bg)"/>
+  <text x="86" y="94" class="title">Before / After</text>
+  <text x="86" y="126" class="sub">Why this is not just another review prompt with sharper wording.</text>
 
-  <rect x="86" y="192" width="572" height="486" rx="30" fill="#FFF7FA" stroke="#F2D2DC"/>
-  <rect x="122" y="226" width="180" height="34" rx="17" fill="#FFE7EF"/>
-  <text x="160" y="249" class="bad">Typical review mode</text>
-  <text x="122" y="314" class="head">What usually happens</text>
-  <text x="122" y="362" class="body">• starts from the current code only</text>
-  <text x="122" y="398" class="body">• trusts polished current behavior too quickly</text>
-  <text x="122" y="434" class="body">• blames the base model before falsifying wrapper layers</text>
-  <text x="122" y="470" class="body">• produces generic advice like "improve prompt" or "clean memory"</text>
-  <text x="122" y="506" class="body">• does not show the contamination path</text>
-  <text x="122" y="542" class="body">• mixes evidence, theory, and style into one blob</text>
-  <text x="122" y="606" class="head">What the user feels</text>
-  <text x="122" y="650" class="body">Another plausible explanation. Still no proof. Still no hard fix order.</text>
+  <rect x="86" y="170" width="1228" height="330" rx="30" fill="#FFF7FA" stroke="#F2D2DC"/>
+  <rect x="122" y="204" width="180" height="34" rx="17" fill="#FFE7EF"/>
+  <text x="160" y="227" class="bad">Typical review mode</text>
+  <text x="122" y="282" class="head">What usually happens</text>
+  <text x="122" y="324" class="body">• starts from the current code only</text>
+  <text x="122" y="356" class="body">• trusts polished current behavior too quickly</text>
+  <text x="122" y="388" class="body">• blames the base model before falsifying wrapper layers</text>
+  <text x="122" y="420" class="body">• produces generic advice like "improve prompt" or "clean memory"</text>
+  <text x="122" y="452" class="body">• does not show the contamination path</text>
 
-  <rect x="742" y="192" width="572" height="486" rx="30" fill="#FFFDF7" stroke="#F1E0B4"/>
-  <rect x="778" y="226" width="234" height="34" rx="17" fill="#FF6A8B"/>
-  <text x="814" y="249" class="good">oh-my-agent-check</text>
-  <text x="778" y="314" class="head">What changes</text>
-  <text x="778" y="362" class="body">• starts from incidents, suspicion, and evidence windows</text>
-  <text x="778" y="398" class="body">• forces a JSON artifact chain before conclusions</text>
-  <text x="778" y="434" class="body">• maps symptom to mechanism, root cause, and source layer</text>
-  <text x="778" y="470" class="body">• calls out stale evidence replay and hidden repair brains</text>
-  <text x="778" y="506" class="body">• ranks failures by operational danger, not by pretty wording</text>
-  <text x="778" y="542" class="body">• puts code-enforced fixes ahead of prompt cosmetics</text>
-  <text x="778" y="606" class="head">What the user gets</text>
-  <text x="778" y="650" class="body">A report that explains exactly where the wrapper betrayed the answer and what to harden first.</text>
+  <rect x="86" y="532" width="1228" height="330" rx="30" fill="#FFFDF7" stroke="#F1E0B4"/>
+  <rect x="122" y="566" width="234" height="34" rx="17" fill="#FF6A8B"/>
+  <text x="158" y="589" class="good">oh-my-agent-check</text>
+  <text x="122" y="644" class="head">What changes</text>
+  <text x="122" y="686" class="body">• starts from incidents, suspicion, and evidence windows</text>
+  <text x="122" y="718" class="body">• forces a JSON artifact chain before conclusions</text>
+  <text x="122" y="750" class="body">• maps symptom to mechanism, root cause, and source layer</text>
+  <text x="122" y="782" class="body">• calls out stale evidence replay and hidden repair brains</text>
+  <text x="122" y="814" class="body">• puts code-enforced fixes ahead of prompt cosmetics</text>
 </svg>

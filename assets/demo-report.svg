@@ -1,65 +1,47 @@
-<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1400" height="1080" viewBox="0 0 1400 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="demoBg" x1="60" y1="30" x2="1320" y2="860" gradientUnits="userSpaceOnUse">
+    <linearGradient id="bg" x1="60" y1="30" x2="1320" y2="1040" gradientUnits="userSpaceOnUse">
       <stop stop-color="#FFF8FB"/>
       <stop offset="1" stop-color="#FFFCEA"/>
     </linearGradient>
-    <filter id="cardShadow" x="-30" y="-30" width="1460" height="960" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#C27F94" flood-opacity="0.18"/>
-    </filter>
     <style>
       .title { font: 700 36px 'Inter', 'Segoe UI', sans-serif; fill: #3C2030; }
       .subtitle { font: 500 18px 'Inter', 'Segoe UI', sans-serif; fill: #7D5968; }
-      .section { font: 700 20px 'Inter', 'Segoe UI', sans-serif; fill: #4E2B38; }
-      .body { font: 500 15px 'Inter', 'Segoe UI', sans-serif; fill: #6D4D5C; }
-      .mono { font: 600 14px 'SFMono-Regular', 'Menlo', monospace; fill: #5C3544; }
+      .section { font: 700 22px 'Inter', 'Segoe UI', sans-serif; fill: #4E2B38; }
+      .body { font: 500 16px 'Inter', 'Segoe UI', sans-serif; fill: #6D4D5C; }
+      .mono { font: 600 15px 'SFMono-Regular', 'Menlo', monospace; fill: #5C3544; }
       .tag { font: 700 13px 'Inter', 'Segoe UI', sans-serif; fill: #FFFFFF; letter-spacing: 0.07em; text-transform: uppercase; }
-      .small { font: 600 15px 'Inter', 'Segoe UI', sans-serif; fill: #7A5969; }
     </style>
   </defs>
 
-  <rect x="24" y="24" width="1352" height="852" rx="34" fill="url(#demoBg)"/>
-  <text x="88" y="104" class="title">Sample diagnosis preview</text>
-  <text x="88" y="140" class="subtitle">A README-ready snapshot of the kind of evidence-backed report the skill is designed to produce.</text>
+  <rect x="24" y="24" width="1352" height="1032" rx="34" fill="url(#bg)"/>
+  <text x="88" y="96" class="title">Sample diagnosis preview</text>
+  <text x="88" y="128" class="subtitle">A README-ready snapshot of the kind of evidence-backed report the skill is designed to produce.</text>
 
-  <g filter="url(#cardShadow)">
-    <rect x="88" y="184" width="1224" height="644" rx="30" fill="#FFFFFF" stroke="#F3D7E0" stroke-width="2"/>
-  </g>
+  <rect x="88" y="172" width="1224" height="160" rx="28" fill="#FFFFFF" stroke="#F3D7E0" stroke-width="2"/>
+  <rect x="120" y="204" width="117" height="34" rx="17" fill="#FF6A8B"/>
+  <text x="148" y="226" class="tag">Critical</text>
+  <text x="120" y="278" class="section">Executive verdict</text>
+  <text x="120" y="312" class="body">Stale evidence is being replayed as current truth.</text>
 
-  <rect x="120" y="218" width="117" height="34" rx="17" fill="#FF6A8B"/>
-  <text x="148" y="240" class="tag">Critical</text>
-  <text x="262" y="242" class="section">Executive verdict: stale evidence is being replayed as current truth</text>
+  <rect x="88" y="360" width="1224" height="170" rx="28" fill="#FFF5F8" stroke="#F5CFDA"/>
+  <text x="120" y="410" class="section">Top finding</text>
+  <text x="120" y="446" class="body">Operational answers can bypass real inspection.</text>
+  <text x="120" y="478" class="body">The agent sounds certain before any required probe runs.</text>
+  <text x="120" y="510" class="body">Root cause: tool discipline exists in prompt prose, not in code gates.</text>
 
-  <rect x="120" y="278" width="548" height="192" rx="24" fill="#FFF5F8" stroke="#F5CFDA"/>
-  <text x="148" y="314" class="section">Top finding</text>
-  <text x="148" y="346" class="body">Operational answers can bypass real inspection.</text>
-  <text x="148" y="376" class="body">The agent sounds certain before any required probe runs.</text>
-  <text x="148" y="406" class="body">Root cause: tool discipline exists in prompt prose,</text>
-  <text x="148" y="434" class="body">not in code gates.</text>
+  <rect x="88" y="558" width="1224" height="170" rx="28" fill="#FFF9EC" stroke="#F2DEB1"/>
+  <text x="120" y="608" class="section">Evidence pack</text>
+  <text x="120" y="644" class="mono">logs/hermes.log: first reply had no shell_exec call</text>
+  <text x="120" y="676" class="mono">memory.db: stale PID artifact survived restart</text>
+  <text x="120" y="708" class="mono">runtime.rs: tool rule enforced by prompt only</text>
 
-  <rect x="690" y="278" width="590" height="192" rx="24" fill="#FFF9EC" stroke="#F2DEB1"/>
-  <text x="718" y="314" class="section">Evidence pack</text>
-  <text x="718" y="350" class="mono">logs/hermes.log: first reply had no shell_exec call</text>
-  <text x="718" y="382" class="mono">memory.db: stale PID artifact survived restart</text>
-  <text x="718" y="414" class="mono">runtime.rs: tool rule enforced by prompt only</text>
-  <text x="718" y="446" class="small">Every finding stays tied to files, rows, or payloads.</text>
+  <rect x="88" y="756" width="1224" height="160" rx="28" fill="#FFF8EC" stroke="#F2DEB1"/>
+  <text x="120" y="806" class="section">Contamination path</text>
+  <text x="120" y="842" class="body">Old tool result -> session history -> distillation -> replayed as if fresh.</text>
+  <text x="120" y="874" class="body">That is not one bug. It is a layered self-sabotage chain.</text>
 
-  <rect x="120" y="498" width="548" height="286" rx="24" fill="#FFF8EC" stroke="#F2DEB1"/>
-  <text x="148" y="534" class="section">Contamination path</text>
-  <text x="148" y="570" class="body">1. Session history preserved an old tool result.</text>
-  <text x="148" y="602" class="body">2. Distillation promoted that result too early.</text>
-  <text x="148" y="634" class="body">3. Long-term memory replayed it without freshness checks.</text>
-  <text x="148" y="666" class="body">4. Final answer shaping made the stale result sound clean.</text>
-  <text x="148" y="708" class="body">That is not one bug. It is a layered self-sabotage chain.</text>
-
-  <rect x="690" y="498" width="590" height="286" rx="24" fill="#FDF5FF" stroke="#E5D1F2"/>
-  <text x="718" y="534" class="section">Ordered fix plan</text>
-  <text x="718" y="570" class="body">1. Hard-gate mandatory probes in code for operational queries.</text>
-  <text x="718" y="602" class="body">2. Stop same-session artifacts from re-entering the same turn.</text>
-  <text x="718" y="634" class="body">3. Tighten memory admission and distillation trigger policy.</text>
-  <text x="718" y="666" class="body">4. Move internal handoff from markdown prose to typed JSON.</text>
-  <text x="718" y="708" class="body">5. Remove hidden repair brains in the platform transport layer.</text>
-
-  <rect x="120" y="804" width="1160" height="36" rx="18" fill="#FFF4D9" stroke="#F0D49D"/>
-  <text x="155" y="828" class="small">The report is meant to feel surgical: prove the damage path, rank the risk, then force fixes where the wrapper currently relies on vibes.</text>
+  <rect x="88" y="944" width="1224" height="86" rx="28" fill="#FDF5FF" stroke="#E5D1F2"/>
+  <text x="120" y="994" class="section">Ordered fix plan</text>
+  <text x="320" y="994" class="body">Hard-gate mandatory probes. Reduce same-session artifact reentry. Move internal handoff to typed JSON.</text>
 </svg>
