@@ -72,9 +72,12 @@ Read these references before auditing:
 - `references/report-schema.json`
 - `references/rubric.md`
 - `references/playbooks.md`
+- `references/advanced-playbooks.md`
 - `references/example-report.json`
 - `references/trigger-prompts.md`
 - `references/framework-directions.md`
+- `references/governance-framework.md`
+- `references/clawhub-publish.md`
 
 ### `agent_check_scope.json`
 
@@ -244,6 +247,10 @@ If multiple apply, combine them, but still keep one primary playbook name in `ag
 
 For fast starts, pull an exact prompt from `references/trigger-prompts.md`.
 
+If the target system is deeply broken, escalate into the harsher modes from:
+
+- `references/advanced-playbooks.md`
+
 ## Framework Expansion
 
 This skill package also includes `references/framework-directions.md`.
@@ -255,6 +262,14 @@ Important:
 - treat those directions as design prompts, not as already-built capabilities
 - guide the user to explore and implement them deliberately
 - do not overclaim that the framework already exists in code unless it truly does
+
+If the user wants to turn audits into an internal standard or governance system, continue with:
+
+- `references/governance-framework.md`
+
+If the user wants to package or distribute this skill, continue with:
+
+- `references/clawhub-publish.md`
 
 ## What Good Looks Like
 
@@ -280,6 +295,11 @@ Keep the package self-contained:
 - `references/report-schema.json`
 - `references/rubric.md`
 - `references/playbooks.md`
+- `references/advanced-playbooks.md`
 - `references/example-report.json`
+- `references/trigger-prompts.md`
+- `references/framework-directions.md`
+- `references/governance-framework.md`
+- `references/clawhub-publish.md`
 
 Do not depend on repo-specific assumptions unless the user asks for a repo-specific extension.
