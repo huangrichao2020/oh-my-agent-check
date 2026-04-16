@@ -17,9 +17,18 @@ This skill is for cases like:
 - "Why does the platform layer mutate good answers into bad ones?"
 - "Audit this CLI agent / runtime / assistant architecture end-to-end"
 
+If the user sounds frustrated, suspicious, or says the base model behaves better elsewhere, this skill is almost always the right tool.
+
 ## Core Rule
 
 Do not trust the current output quality, current prompt text, or current "fixed" behavior by default.
+
+This skill assumes:
+
+- the target agent may already be lying about its own capabilities
+- current behavior may hide historical regressions
+- the "smart" layer may actually be a stack of self-sabotaging wrappers
+- explanations without evidence are noise
 
 The target of the audit is the full stack:
 
@@ -49,6 +58,13 @@ Before writing prose conclusions, build these internal artifacts in order:
 
 Do not skip directly to recommendations.
 
+Be brutal about causality:
+
+- do not say "the model is weak" unless the wrapper layers have been falsified
+- do not say "memory is bad" unless you can show the contamination path
+- do not say "tool use is flaky" unless you can show the exact skip or drift path
+- do not let a clean current state erase a dirty historical incident
+
 ## Artifact Contracts
 
 Read these references before auditing:
@@ -57,6 +73,7 @@ Read these references before auditing:
 - `references/rubric.md`
 - `references/playbooks.md`
 - `references/example-report.json`
+- `references/trigger-prompts.md`
 
 ### `agent_check_scope.json`
 
@@ -159,6 +176,12 @@ Look specifically for these anti-patterns:
 - freeform markdown being used as an internal protocol
 - transport-layer code acting like another agent
 
+Also look for the "fake depth" pattern:
+
+- the wrapper adds more steps, but fewer reliable controls
+- the model sounds more sophisticated while becoming less grounded
+- the stack appears more agentic, but evidence quality gets worse
+
 ### Phase 4: Fix Strategy
 
 Prefer code control over prompt control.
@@ -200,6 +223,12 @@ If the user explicitly asks for the structured JSON, provide the JSON report.
 
 If the user asks for a readable summary, render from `agent_check_report.json` instead of improvising a new theory.
 
+Do not soften the verdict for politeness.
+
+If the system is broken, say it is broken.
+
+If the main problem is wrapper design, say so directly.
+
 ## Standard Audit Modes
 
 Use the closest playbook from `references/playbooks.md`:
@@ -212,6 +241,8 @@ Use the closest playbook from `references/playbooks.md`:
 
 If multiple apply, combine them, but still keep one primary playbook name in `agent_check_scope.json`.
 
+For fast starts, pull an exact prompt from `references/trigger-prompts.md`.
+
 ## What Good Looks Like
 
 A good audit from this skill should be able to answer:
@@ -222,6 +253,8 @@ A good audit from this skill should be able to answer:
 - Which fixes must be code-enforced?
 - Which prompts should be deleted entirely?
 - Which state should never be persisted?
+- Which layer is pretending to help while actually making the system worse?
+- Which "agentic" behaviors are fake sophistication?
 
 ## Minimal Publishing Shape
 

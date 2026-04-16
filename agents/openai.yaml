@@ -1,7 +1,7 @@
 interface:
   display_name: "Oh My Agent Check"
-  short_description: "Brutal agent wrapper audit"
-  default_prompt: "Use $oh-my-agent-check to audit this agent system end-to-end and produce a severity-ranked diagnosis."
+  short_description: "No-mercy agent diagnosis"
+  default_prompt: "Use $oh-my-agent-check to audit this agent system like it is lying about its own health and give me a severity-ranked, evidence-backed diagnosis."
 
 policy:
   allow_implicit_invocation: true

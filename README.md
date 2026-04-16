@@ -2,7 +2,18 @@
 
 Brutally strict, JSON-first agent-wrapper audit skill.
 
-This package is for auditing any agent system itself:
+This is not a "nice review" skill.
+
+It is a **no-mercy diagnostic instrument** for agent systems that:
+
+- sound smarter than they are
+- hide failures behind extra layers
+- mutate good evidence into bad answers
+- blame the base model when the wrapper is the real problem
+
+## What It Audits
+
+Any agent system itself:
 
 - CLI coding agents
 - long-running assistant runtimes
@@ -11,43 +22,21 @@ This package is for auditing any agent system itself:
 - memory-heavy assistants
 - tool-using autonomous loops
 
-It exists to answer questions like:
+## Questions It Is Built To Answer
 
-- Why does this agent become worse than the base model?
+- Why does this wrapped agent behave worse than the base model?
 - Which layer first corrupted the answer?
+- Which layer amplified the corruption?
 - Where is the hidden prompt conflict?
 - Which memory path is polluting new turns?
 - Which fallback loop is mutating correct answers into bad ones?
 - Which fixes must be code-enforced instead of prompt-enforced?
 
-## What It Produces
+## Why It Exists
 
-Internally, this skill expects the audit to be driven through four structured artifacts:
+Many agent systems do not fail because the model is bad.
 
-1. `agent_check_scope.json`
-2. `evidence_pack.json`
-3. `failure_map.json`
-4. `agent_check_report.json`
-
-The final user-facing answer should then be rendered from the report instead of improvised from memory.
-
-## Audit Modes
-
-Standard playbooks included in this package:
-
-- `wrapper-regression`
-- `memory-contamination`
-- `tool-discipline`
-- `rendering-transport`
-- `hidden-agent-layers`
-
-See:
-
-- `references/playbooks.md`
-
-## Why This Exists
-
-Many agent systems degrade because they are not one model anymore. They become a stack:
+They fail because the wrapper becomes a stack of self-sabotage:
 
 - system prompt
 - session history
@@ -59,10 +48,36 @@ Many agent systems degrade because they are not one model anymore. They become a
 - tool interpretation
 - answer shaping
 - platform rendering
-- hidden fallback agents
+- hidden repair agents
 - stale persistence
 
-This skill is designed to inspect that full stack without hand-wavy explanations.
+This skill is designed to inspect that full stack with evidence instead of vibes.
+
+## What It Produces
+
+Internally, the audit is expected to move through four structured artifacts:
+
+1. `agent_check_scope.json`
+2. `evidence_pack.json`
+3. `failure_map.json`
+4. `agent_check_report.json`
+
+The final human-readable answer should be rendered from the structured report instead of improvised from memory.
+
+## Audit Modes
+
+Included playbooks:
+
+- `wrapper-regression`
+- `memory-contamination`
+- `tool-discipline`
+- `rendering-transport`
+- `hidden-agent-layers`
+
+See:
+
+- `references/playbooks.md`
+- `references/trigger-prompts.md`
 
 ## Package Contents
 
@@ -71,21 +86,23 @@ This skill is designed to inspect that full stack without hand-wavy explanations
 - `references/report-schema.json`
 - `references/rubric.md`
 - `references/playbooks.md`
+- `references/trigger-prompts.md`
 - `references/example-report.json`
 
 ## Example Prompt
 
-Use `$oh-my-agent-check` to audit this agent runtime end-to-end. Focus on wrapper-regression and tool-discipline, inspect yesterday’s logs instead of only current behavior, and give me a severity-ranked diagnosis with code-enforced fixes first.
+Use `$oh-my-agent-check` to audit this agent runtime like it is lying about its own health. Focus on wrapper-regression and tool-discipline, inspect yesterday’s incidents instead of only current code, and give me a severity-ranked diagnosis with code-enforced fixes first.
 
 ## Design Principles
 
-This skill is intentionally:
+This package is intentionally:
 
 - JSON-first
 - evidence-backed
 - hostile to hand-wavy explanations
 - focused on wrapper architecture, not user-task completion
 - biased toward code-control over prompt-control
+- optimized for uncovering hidden failure paths, not preserving feelings
 
 ## Publishing Notes
 
