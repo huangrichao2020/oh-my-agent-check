@@ -1,0 +1,7 @@
+interface:
+  display_name: "Oh My Agent Check"
+  short_description: "Brutal agent wrapper audit"
+  default_prompt: "Use $oh-my-agent-check to audit this agent system end-to-end and produce a severity-ranked diagnosis."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,114 @@
+{
+  "schema_version": "oh-my-agent-check.report.v1",
+  "executive_verdict": {
+    "overall_health": "high_risk",
+    "primary_failure_mode": "stale same-session evidence is being reused as if it were current truth",
+    "most_urgent_fix": "enforce code-level fresh probes for operational queries"
+  },
+  "scope": {
+    "target_name": "Example Agent Runtime",
+    "entrypoints": ["Feishu adapter", "CLI test entry"],
+    "channels": ["feishu", "cli"],
+    "model_stack": ["qwen3.6-plus"],
+    "time_window": "historical incident window on 2026-04-15",
+    "layers_to_audit": [
+      "system_prompt",
+      "session_history",
+      "long_term_memory",
+      "distillation",
+      "active_recall",
+      "tool_selection",
+      "tool_execution",
+      "tool_interpretation",
+      "answer_shaping",
+      "platform_rendering",
+      "fallback_loops",
+      "persistence"
+    ]
+  },
+  "evidence_pack": [
+    {
+      "kind": "log",
+      "source": "hermes-rs.log",
+      "location": "turn where agent answered before using shell_exec",
+      "summary": "The first reply claimed inability to directly inspect stdout without any tool call.",
+      "time_scope": "historical"
+    },
+    {
+      "kind": "db",
+      "source": "memory.db",
+      "location": "distilled_artifacts",
+      "summary": "A stale port-listener artifact persisted an old PID and later steered repeated answers.",
+      "time_scope": "historical"
+    },
+    {
+      "kind": "code",
+      "source": "runtime orchestration",
+      "location": "tool-gating path",
+      "summary": "Operational queries were allowed to complete without hard tool enforcement.",
+      "time_scope": "current"
+    }
+  ],
+  "findings": [
+    {
+      "severity": "critical",
+      "title": "Operational answers can bypass real inspection",
+      "symptom": "Agent gives confident system-state answers before tools run.",
+      "user_impact": "Users receive wrong server facts with high confidence.",
+      "source_layer": "tool_selection",
+      "mechanism": "Tool usage is encouraged in prompt text but not always required by code.",
+      "root_cause": "Prompt-enforced discipline instead of code-enforced discipline.",
+      "evidence_refs": ["hermes-rs.log:first_reply_without_tool", "runtime:tool_gating"],
+      "confidence": 0.98,
+      "fix_type": "code",
+      "recommended_fix": "Introduce task classification plus mandatory probe execution before final answer."
+    },
+    {
+      "severity": "high",
+      "title": "Same-session stale evidence contaminates later turns",
+      "symptom": "The agent repeats an old PID or old IP result after the runtime has changed.",
+      "user_impact": "Correct early evidence becomes dangerous stale evidence later in the same conversation.",
+      "source_layer": "persistence",
+      "mechanism": "Prior tool observations survive in history and durable artifacts without freshness checks.",
+      "root_cause": "No mandatory current-turn evidence binding for operational conclusions.",
+      "evidence_refs": ["memory.db:stale_port_artifact", "session_history:reused_old_pid"],
+      "confidence": 0.96,
+      "fix_type": "architecture",
+      "recommended_fix": "Bind system-state answers to fresh current-turn probes and tag them with evidence timestamps."
+    }
+  ],
+  "conflict_map": [
+    {
+      "from_layer": "session_history",
+      "to_layer": "tool_interpretation",
+      "conflict_type": "stale_state",
+      "note": "Old evidence is accepted as if it were fresh."
+    },
+    {
+      "from_layer": "distillation",
+      "to_layer": "long_term_memory",
+      "conflict_type": "duplication",
+      "note": "Interim conclusions become durable knowledge too early."
+    }
+  ],
+  "ordered_fix_plan": [
+    {
+      "order": 1,
+      "goal": "Force fresh probes for system-state queries",
+      "why_now": "It removes the most damaging correctness failure immediately.",
+      "expected_effect": "Wrong operational answers drop sharply."
+    },
+    {
+      "order": 2,
+      "goal": "Reduce same-session reentry of distilled artifacts",
+      "why_now": "It cuts one of the strongest contamination paths.",
+      "expected_effect": "Less drift across repeated questions in the same session."
+    },
+    {
+      "order": 3,
+      "goal": "Move internal state passing to JSON envelopes",
+      "why_now": "It reduces prompt entropy and duplicate prose injection.",
+      "expected_effect": "Cleaner, more inspectable agent orchestration."
+    }
+  ]
+}
