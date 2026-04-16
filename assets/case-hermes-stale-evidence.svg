@@ -1,0 +1,56 @@
+<svg width="1400" height="720" viewBox="0 0 1400 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="40" y1="20" x2="1360" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8FB"/>
+      <stop offset="1" stop-color="#FFFCEE"/>
+    </linearGradient>
+    <style>
+      .title { font: 700 40px 'Inter', 'Segoe UI', sans-serif; fill: #341A28; }
+      .sub { font: 500 20px 'Inter', 'Segoe UI', sans-serif; fill: #745262; }
+      .chip { font: 700 13px 'Inter', 'Segoe UI', sans-serif; fill: #FFFFFF; letter-spacing: 0.07em; text-transform: uppercase; }
+      .section { font: 700 22px 'Inter', 'Segoe UI', sans-serif; fill: #4E2B38; }
+      .body { font: 500 17px 'Inter', 'Segoe UI', sans-serif; fill: #6D4D5C; }
+      .mono { font: 700 16px 'SFMono-Regular', 'Menlo', monospace; fill: #5B3544; }
+    </style>
+  </defs>
+
+  <rect x="20" y="20" width="1360" height="680" rx="34" fill="url(#bg)"/>
+  <text x="84" y="108" class="title">Case snapshot: stale evidence replay</text>
+  <text x="84" y="144" class="sub">A real class of failure where an old runtime fact keeps returning as if it were still fresh.</text>
+
+  <rect x="84" y="190" width="308" height="432" rx="28" fill="#FFF7FA" stroke="#F2D2DC"/>
+  <rect x="112" y="220" width="106" height="30" rx="15" fill="#FF6A8B"/>
+  <text x="138" y="240" class="chip">Symptom</text>
+  <text x="112" y="300" class="section">User sees</text>
+  <text x="112" y="338" class="body">The agent keeps returning an old PID,</text>
+  <text x="112" y="368" class="body">old IP, or old service state</text>
+  <text x="112" y="398" class="body">after the machine has already changed.</text>
+
+  <text x="112" y="470" class="section">Typical lie</text>
+  <text x="112" y="508" class="body">The answer looks clean and calm,</text>
+  <text x="112" y="538" class="body">so the user assumes the agent re-checked.</text>
+
+  <rect x="430" y="190" width="408" height="432" rx="28" fill="#FFFDF7" stroke="#F1E0B4"/>
+  <text x="462" y="236" class="section">What actually happened</text>
+  <text x="462" y="290" class="body">1. A previous tool result entered the session.</text>
+  <text x="462" y="326" class="body">2. That result survived in history or durable artifacts.</text>
+  <text x="462" y="362" class="body">3. No fresh current-turn probe was enforced.</text>
+  <text x="462" y="398" class="body">4. Final answer shaping polished the stale value into a confident response.</text>
+
+  <rect x="462" y="452" width="344" height="110" rx="20" fill="#FFF2D8" stroke="#EFD39A"/>
+  <text x="492" y="492" class="mono">old probe → memory/history</text>
+  <text x="492" y="522" class="mono">→ reused as current truth</text>
+
+  <rect x="876" y="190" width="440" height="432" rx="28" fill="#FFF5F8" stroke="#F2D2DC"/>
+  <rect x="910" y="220" width="120" height="30" rx="15" fill="#FF8FB2"/>
+  <text x="937" y="240" class="chip">Fix order</text>
+  <text x="910" y="300" class="section">What the skill tells you to do</text>
+  <text x="910" y="338" class="body">• Force fresh probes in code for operational queries.</text>
+  <text x="910" y="374" class="body">• Bind answers to current-turn evidence and timestamps.</text>
+  <text x="910" y="410" class="body">• Stop same-session artifacts from re-entering the same turn.</text>
+  <text x="910" y="446" class="body">• Only after that, clean up prompt wording.</text>
+
+  <rect x="910" y="492" width="372" height="84" rx="20" fill="#FDF4FF" stroke="#E5D2F0"/>
+  <text x="940" y="528" class="body">This is not a small formatting bug.</text>
+  <text x="940" y="556" class="body">It is a trust-destroying evidence failure.</text>
+</svg>

@@ -2,6 +2,8 @@
 
 Brutally strict, JSON-first agent-wrapper audit skill.
 
+![oh-my-agent-check cover](./assets/cover-banner.svg)
+
 This is not a "nice review" skill. It is a **no-mercy diagnostic instrument** for agent systems that:
 
 - sound smarter than they are
@@ -49,6 +51,22 @@ This is the tone and shape the skill is aiming for:
 - findings first
 - contamination path second
 - code-first fix order third
+
+## Case Snapshots
+
+These are the kinds of failures the skill is designed to expose without flinching.
+
+### 1. Stale evidence replay
+
+![stale evidence replay case](./assets/case-hermes-stale-evidence.svg)
+
+This catches wrappers that keep answering with old facts because history, memory, or persistence got replayed as if it were a fresh probe.
+
+### 2. Hidden repair brain
+
+![hidden repair brain case](./assets/case-hidden-repair-brain.svg)
+
+This catches platforms that secretly run a second prompt or LLM pass and quietly mutate an answer during fallback or delivery.
 
 ## What It Audits
 

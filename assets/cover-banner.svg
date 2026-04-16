@@ -1,0 +1,71 @@
+<svg width="1600" height="840" viewBox="0 0 1600 840" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="80" y1="60" x2="1510" y2="790" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF2F7"/>
+      <stop offset="0.55" stop-color="#FFFCEE"/>
+      <stop offset="1" stop-color="#FDF6FF"/>
+    </linearGradient>
+    <linearGradient id="pink" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FF9ABB"/>
+      <stop offset="1" stop-color="#FF668B"/>
+    </linearGradient>
+    <linearGradient id="cream" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FFF4CB"/>
+      <stop offset="1" stop-color="#FFD976"/>
+    </linearGradient>
+    <filter id="shadow" x="-40" y="-40" width="1680" height="920" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#B7758D" flood-opacity="0.18"/>
+    </filter>
+    <style>
+      .hero { font: 800 72px 'Inter', 'Segoe UI', sans-serif; fill: #341A28; }
+      .sub { font: 500 28px 'Inter', 'Segoe UI', sans-serif; fill: #745262; }
+      .chip { font: 700 15px 'Inter', 'Segoe UI', sans-serif; fill: #8F5062; letter-spacing: 0.08em; text-transform: uppercase; }
+      .panelTitle { font: 700 24px 'Inter', 'Segoe UI', sans-serif; fill: #4F2A38; }
+      .copy { font: 500 18px 'Inter', 'Segoe UI', sans-serif; fill: #6E4F5D; }
+      .mono { font: 700 16px 'SFMono-Regular', 'Menlo', monospace; fill: #5B3544; }
+    </style>
+  </defs>
+
+  <rect x="24" y="24" width="1552" height="792" rx="38" fill="url(#bg)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="76" y="82" width="1448" height="676" rx="36" fill="#FFFEFF" stroke="#F3D7E0" stroke-width="2"/>
+  </g>
+
+  <rect x="118" y="124" width="192" height="38" rx="19" fill="#FFE8F0"/>
+  <text x="150" y="149" class="chip">No-mercy audit skill</text>
+
+  <text x="118" y="236" class="hero">oh-my-agent-check</text>
+  <text x="118" y="284" class="sub">A brutal, evidence-backed way to find where your agent wrapper started lying.</text>
+
+  <rect x="118" y="340" width="564" height="266" rx="28" fill="#FFF7FA" stroke="#F4D2DC"/>
+  <text x="152" y="384" class="panelTitle">What it hunts</text>
+  <text x="152" y="424" class="copy">• duplicated context across prompt, history, memory, and recall</text>
+  <text x="152" y="458" class="copy">• stale evidence replay dressed up as current truth</text>
+  <text x="152" y="492" class="copy">• tools suggested in prompt but never enforced in code</text>
+  <text x="152" y="526" class="copy">• hidden repair brains that mutate good answers in transport</text>
+  <text x="152" y="560" class="copy">• fake agentic depth that sounds smarter while grounding gets worse</text>
+
+  <rect x="118" y="634" width="564" height="74" rx="22" fill="#FFF3D9" stroke="#F0D59A"/>
+  <text x="152" y="678" class="mono">scope.json → evidence_pack.json → failure_map.json → report.json</text>
+
+  <rect x="744" y="164" width="684" height="510" rx="32" fill="#FFFDF7" stroke="#F3E3B5"/>
+  <rect x="784" y="206" width="148" height="34" rx="17" fill="url(#pink)"/>
+  <text x="818" y="228" class="chip" style="fill:#FFFFFF">How it feels</text>
+
+  <rect x="784" y="274" width="600" height="98" rx="22" fill="#FFF4F8" stroke="#F3D1DB"/>
+  <text x="816" y="312" class="panelTitle">1. It starts from suspicion, not politeness</text>
+  <text x="816" y="344" class="copy">Treat the wrapper as untrusted until evidence proves otherwise.</text>
+
+  <rect x="784" y="392" width="600" height="98" rx="22" fill="#FFF9EC" stroke="#F0DDB1"/>
+  <text x="816" y="430" class="panelTitle">2. It turns vibes into audit artifacts</text>
+  <text x="816" y="462" class="copy">Every strong claim must map back to logs, code, rows, or payloads.</text>
+
+  <rect x="784" y="510" width="600" height="124" rx="22" fill="#FDF4FF" stroke="#E8D5F0"/>
+  <text x="816" y="548" class="panelTitle">3. It gives you a fix order that cuts through theater</text>
+  <text x="816" y="580" class="copy">Hard code gates first. Remove hidden brains second.</text>
+  <text x="816" y="610" class="copy">Only then clean up prompts, rendering, and documentation.</text>
+
+  <circle cx="1424" cy="112" r="52" fill="url(#cream)" opacity="0.8"/>
+  <circle cx="1488" cy="176" r="26" fill="#FFEFC3" opacity="0.9"/>
+</svg>
