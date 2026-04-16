@@ -2,14 +2,53 @@
 
 Brutally strict, JSON-first agent-wrapper audit skill.
 
-This is not a "nice review" skill.
-
-It is a **no-mercy diagnostic instrument** for agent systems that:
+This is not a "nice review" skill. It is a **no-mercy diagnostic instrument** for agent systems that:
 
 - sound smarter than they are
 - hide failures behind extra layers
 - mutate good evidence into bad answers
 - blame the base model when the wrapper is the real problem
+
+## Why This Exists
+
+Many agent systems do not fail because the model is bad.
+
+They fail because the wrapper becomes a stack of self-sabotage:
+
+- system prompt
+- session history
+- long-term memory
+- distillation
+- active recall
+- tool selection
+- tool execution
+- tool interpretation
+- answer shaping
+- platform rendering
+- hidden repair agents
+- stale persistence
+
+This skill is designed to inspect that whole stack with evidence instead of vibes.
+
+## Architecture
+
+![oh-my-agent-check architecture](./assets/architecture-diagram.svg)
+
+The architecture is simple on purpose:
+
+1. Start with symptoms, suspicion, and historical evidence.
+2. Convert the audit into structured artifacts instead of freestyle prose.
+3. Render a severity-ranked verdict that points at wrapper failures, not excuses.
+
+## Demo Output
+
+![oh-my-agent-check demo report](./assets/demo-report.svg)
+
+This is the tone and shape the skill is aiming for:
+
+- findings first
+- contamination path second
+- code-first fix order third
 
 ## What It Audits
 
@@ -32,30 +71,9 @@ Any agent system itself:
 - Which fallback loop is mutating correct answers into bad ones?
 - Which fixes must be code-enforced instead of prompt-enforced?
 
-## Why It Exists
-
-Many agent systems do not fail because the model is bad.
-
-They fail because the wrapper becomes a stack of self-sabotage:
-
-- system prompt
-- session history
-- long-term memory
-- distillation
-- active recall
-- tool selection
-- tool execution
-- tool interpretation
-- answer shaping
-- platform rendering
-- hidden repair agents
-- stale persistence
-
-This skill is designed to inspect that full stack with evidence instead of vibes.
-
 ## What It Produces
 
-Internally, the audit is expected to move through four structured artifacts:
+Internally, the audit moves through four structured artifacts:
 
 1. `agent_check_scope.json`
 2. `evidence_pack.json`
@@ -66,7 +84,7 @@ The final human-readable answer should be rendered from the structured report in
 
 ## Audit Modes
 
-Included playbooks:
+Core playbooks:
 
 - `wrapper-regression`
 - `memory-contamination`
@@ -74,24 +92,49 @@ Included playbooks:
 - `rendering-transport`
 - `hidden-agent-layers`
 
+Advanced playbooks:
+
+- `false-confidence`
+- `stale-evidence-replay`
+- `fake-agentic-depth`
+- `hidden-repair-brain`
+- `memory-poisoning`
+- `protocol-decay`
+
 See:
 
 - `references/playbooks.md`
+- `references/advanced-playbooks.md`
 - `references/trigger-prompts.md`
+
+## What Makes It Different
+
+- It does not default to blaming the base model.
+- It does not let current cleanliness erase historical incidents.
+- It does not treat markdown prose as a trustworthy internal protocol.
+- It does not accept "must use tool" as prompt text if code never enforces it.
+- It prefers wrapper causality over decorative summaries.
+
+## Example Prompt
+
+Use `$oh-my-agent-check` to audit this agent runtime like it is lying about its own health. Focus on wrapper-regression and tool-discipline, inspect yesterday's incidents instead of only current code, and give me a severity-ranked diagnosis with code-enforced fixes first.
 
 ## Package Contents
 
 - `SKILL.md`
 - `agents/openai.yaml`
+- `assets/pig-icon.svg`
+- `assets/architecture-diagram.svg`
+- `assets/demo-report.svg`
 - `references/report-schema.json`
 - `references/rubric.md`
 - `references/playbooks.md`
+- `references/advanced-playbooks.md`
 - `references/trigger-prompts.md`
 - `references/example-report.json`
-
-## Example Prompt
-
-Use `$oh-my-agent-check` to audit this agent runtime like it is lying about its own health. Focus on wrapper-regression and tool-discipline, inspect yesterday’s incidents instead of only current code, and give me a severity-ranked diagnosis with code-enforced fixes first.
+- `references/framework-directions.md`
+- `references/governance-framework.md`
+- `references/clawhub-publish.md`
 
 ## Design Principles
 
