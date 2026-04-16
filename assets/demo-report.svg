@@ -8,11 +8,11 @@
       <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#C27F94" flood-opacity="0.18"/>
     </filter>
     <style>
-      .title { font: 700 42px 'Inter', 'Segoe UI', sans-serif; fill: #3C2030; }
-      .subtitle { font: 500 20px 'Inter', 'Segoe UI', sans-serif; fill: #7D5968; }
-      .section { font: 700 22px 'Inter', 'Segoe UI', sans-serif; fill: #4E2B38; }
-      .body { font: 500 17px 'Inter', 'Segoe UI', sans-serif; fill: #6D4D5C; }
-      .mono { font: 600 16px 'SFMono-Regular', 'Menlo', monospace; fill: #5C3544; }
+      .title { font: 700 36px 'Inter', 'Segoe UI', sans-serif; fill: #3C2030; }
+      .subtitle { font: 500 18px 'Inter', 'Segoe UI', sans-serif; fill: #7D5968; }
+      .section { font: 700 20px 'Inter', 'Segoe UI', sans-serif; fill: #4E2B38; }
+      .body { font: 500 15px 'Inter', 'Segoe UI', sans-serif; fill: #6D4D5C; }
+      .mono { font: 600 14px 'SFMono-Regular', 'Menlo', monospace; fill: #5C3544; }
       .tag { font: 700 13px 'Inter', 'Segoe UI', sans-serif; fill: #FFFFFF; letter-spacing: 0.07em; text-transform: uppercase; }
       .small { font: 600 15px 'Inter', 'Segoe UI', sans-serif; fill: #7A5969; }
     </style>
@@ -28,7 +28,7 @@
 
   <rect x="120" y="218" width="117" height="34" rx="17" fill="#FF6A8B"/>
   <text x="148" y="240" class="tag">Critical</text>
-  <text x="262" y="242" class="section">Executive verdict: wrapper is replaying stale evidence as current truth</text>
+  <text x="262" y="242" class="section">Executive verdict: stale evidence is being replayed as current truth</text>
 
   <rect x="120" y="278" width="548" height="192" rx="24" fill="#FFF5F8" stroke="#F5CFDA"/>
   <text x="148" y="314" class="section">Top finding</text>
@@ -39,9 +39,9 @@
 
   <rect x="690" y="278" width="590" height="192" rx="24" fill="#FFF9EC" stroke="#F2DEB1"/>
   <text x="718" y="314" class="section">Evidence pack</text>
-  <text x="718" y="350" class="mono">logs/hermes.log: first reply contained no shell_exec call</text>
-  <text x="718" y="382" class="mono">memory.db: stale PID artifact survived after restart</text>
-  <text x="718" y="414" class="mono">runtime.rs: tool requirement enforced by prompt only</text>
+  <text x="718" y="350" class="mono">logs/hermes.log: first reply had no shell_exec call</text>
+  <text x="718" y="382" class="mono">memory.db: stale PID artifact survived restart</text>
+  <text x="718" y="414" class="mono">runtime.rs: tool rule enforced by prompt only</text>
   <text x="718" y="446" class="small">Every finding stays tied to files, rows, or payloads.</text>
 
   <rect x="120" y="498" width="548" height="286" rx="24" fill="#FFF8EC" stroke="#F2DEB1"/>
