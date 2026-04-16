@@ -2,7 +2,7 @@
 
 Brutally strict, JSON-first agent-wrapper audit skill.
 
-This skill is for auditing any agent system itself:
+This package is for auditing any agent system itself:
 
 - CLI coding agents
 - long-running assistant runtimes
@@ -11,13 +11,58 @@ This skill is for auditing any agent system itself:
 - memory-heavy assistants
 - tool-using autonomous loops
 
-It is designed to answer questions like:
+It exists to answer questions like:
 
 - Why does this agent become worse than the base model?
+- Which layer first corrupted the answer?
 - Where is the hidden prompt conflict?
-- Which layer is polluting memory?
+- Which memory path is polluting new turns?
 - Which fallback loop is mutating correct answers into bad ones?
 - Which fixes must be code-enforced instead of prompt-enforced?
+
+## What It Produces
+
+Internally, this skill expects the audit to be driven through four structured artifacts:
+
+1. `agent_check_scope.json`
+2. `evidence_pack.json`
+3. `failure_map.json`
+4. `agent_check_report.json`
+
+The final user-facing answer should then be rendered from the report instead of improvised from memory.
+
+## Audit Modes
+
+Standard playbooks included in this package:
+
+- `wrapper-regression`
+- `memory-contamination`
+- `tool-discipline`
+- `rendering-transport`
+- `hidden-agent-layers`
+
+See:
+
+- `references/playbooks.md`
+
+## Why This Exists
+
+Many agent systems degrade because they are not one model anymore. They become a stack:
+
+- system prompt
+- session history
+- long-term memory
+- distillation
+- active recall
+- tool selection
+- tool execution
+- tool interpretation
+- answer shaping
+- platform rendering
+- hidden fallback agents
+- stale persistence
+
+This skill is designed to inspect that full stack without hand-wavy explanations.
 
 ## Package Contents
 
@@ -28,7 +73,11 @@ It is designed to answer questions like:
 - `references/playbooks.md`
 - `references/example-report.json`
 
-## Core Design
+## Example Prompt
+
+Use `$oh-my-agent-check` to audit this agent runtime end-to-end. Focus on wrapper-regression and tool-discipline, inspect yesterday’s logs instead of only current behavior, and give me a severity-ranked diagnosis with code-enforced fixes first.
+
+## Design Principles
 
 This skill is intentionally:
 
@@ -36,29 +85,7 @@ This skill is intentionally:
 - evidence-backed
 - hostile to hand-wavy explanations
 - focused on wrapper architecture, not user-task completion
-
-The expected internal audit flow is:
-
-1. `agent_check_scope.json`
-2. `evidence_pack.json`
-3. `failure_map.json`
-4. `agent_check_report.json`
-
-## Recommended Use
-
-Invoke it when you want a full-stack diagnosis of an agent system:
-
-- system prompt
-- session history
-- long-term memory
-- distillation
-- active recall
-- tool selection
-- tool execution and interpretation
-- answer shaping
-- platform rendering
-- hidden fallback/repair loops
-- stale persistence
+- biased toward code-control over prompt-control
 
 ## Publishing Notes
 
