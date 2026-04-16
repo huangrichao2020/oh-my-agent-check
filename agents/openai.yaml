@@ -1,6 +1,8 @@
 interface:
   display_name: "Oh My Agent Check"
   short_description: "No-mercy agent diagnosis"
+  icon_small: "./assets/pig-icon.svg"
+  icon_large: "./assets/pig-icon.svg"
   default_prompt: "Use $oh-my-agent-check to audit this agent system like it is lying about its own health and give me a severity-ranked, evidence-backed diagnosis."
 
 policy:
