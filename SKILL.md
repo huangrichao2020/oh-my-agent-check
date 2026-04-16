@@ -74,6 +74,7 @@ Read these references before auditing:
 - `references/playbooks.md`
 - `references/example-report.json`
 - `references/trigger-prompts.md`
+- `references/framework-directions.md`
 
 ### `agent_check_scope.json`
 
@@ -242,6 +243,18 @@ Use the closest playbook from `references/playbooks.md`:
 If multiple apply, combine them, but still keep one primary playbook name in `agent_check_scope.json`.
 
 For fast starts, pull an exact prompt from `references/trigger-prompts.md`.
+
+## Framework Expansion
+
+This skill package also includes `references/framework-directions.md`.
+
+Use it when the user wants to evolve this audit skill into a broader methodology, framework, workshop, internal standard, or productized review system.
+
+Important:
+
+- treat those directions as design prompts, not as already-built capabilities
+- guide the user to explore and implement them deliberately
+- do not overclaim that the framework already exists in code unless it truly does
 
 ## What Good Looks Like
 
