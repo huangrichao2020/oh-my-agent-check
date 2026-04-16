@@ -52,6 +52,27 @@ This is the tone and shape the skill is aiming for:
 - contamination path second
 - code-first fix order third
 
+## How To Use
+
+![how to use oh-my-agent-check](./assets/how-to-use.svg)
+
+The short version:
+
+1. Point it at the failure window, not just the current clean state.
+2. Force the JSON artifact chain before any prose verdict.
+3. Demand a fix order that hardens code paths before polishing prompts.
+
+## Why It Hits Harder
+
+![before after comparison](./assets/before-after.svg)
+
+This skill is meant to feel different from a normal architecture review:
+
+- less hand-wavy
+- less polite about broken systems
+- more interested in contamination paths than in generic best practices
+- more likely to tell you the wrapper is the problem, not the model
+
 ## Case Snapshots
 
 These are the kinds of failures the skill is designed to expose without flinching.
@@ -144,6 +165,8 @@ Use `$oh-my-agent-check` to audit this agent runtime like it is lying about its 
 - `assets/pig-icon.svg`
 - `assets/architecture-diagram.svg`
 - `assets/demo-report.svg`
+- `assets/how-to-use.svg`
+- `assets/before-after.svg`
 - `references/report-schema.json`
 - `references/rubric.md`
 - `references/playbooks.md`
