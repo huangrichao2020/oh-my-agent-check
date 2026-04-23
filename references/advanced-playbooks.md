@@ -80,3 +80,45 @@ Focus:
 - JSON vs narrative boundary
 - envelope integrity
 - loss of structure across layers
+
+## runaway-agent-loop
+
+Use when:
+
+- agents call agents call agents, without iteration guards
+- circular dependencies between agent components
+- cost spikes with no visible output
+
+Focus:
+
+- max-iteration enforcement at every agent boundary
+- cycle detection in agent dependency graphs
+- cost guardrails and circuit breakers
+
+## prompt-injection-surface
+
+Use when:
+
+- user input reaches agent prompts without sanitization
+- the agent processes untrusted text as instructions
+- tool outputs can influence system behavior
+
+Focus:
+
+- input/output sanitization boundaries
+- instruction vs data separation
+- tool output trust model
+
+## multi-agent-orchestration-failure
+
+Use when:
+
+- multiple agents coordinate but produce worse results than a single agent
+- supervisor/worker patterns fail to converge
+- agents contradict each other or duplicate work
+
+Focus:
+
+- supervisor authority and conflict resolution
+- worker isolation and responsibility boundaries
+- shared state consistency
