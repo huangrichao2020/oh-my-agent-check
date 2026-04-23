@@ -73,6 +73,7 @@ Read these references before auditing:
 - `references/rubric.md`
 - `references/playbooks.md`
 - `references/advanced-playbooks.md`
+- `references/code-patterns.md`
 - `references/example-report.json`
 - `references/trigger-prompts.md`
 - `references/framework-directions.md`
@@ -237,19 +238,36 @@ If the main problem is wrapper design, say so directly.
 
 Use the closest playbook from `references/playbooks.md`:
 
+Core playbooks:
+
 - `wrapper-regression`
 - `memory-contamination`
 - `tool-discipline`
 - `rendering-transport`
 - `hidden-agent-layers`
 
+Production-discovered playbooks (from Langflow, GenericAgent, OpenCode, superpowers integrations):
+
+- `code-execution-safety`
+- `memory-growth-hazard`
+- `observability-gap`
+- `state-mutator-safety`
+
 If multiple apply, combine them, but still keep one primary playbook name in `agent_check_scope.json`.
 
 For fast starts, pull an exact prompt from `references/trigger-prompts.md`.
 
+For code-level evidence, search patterns in `references/code-patterns.md`.
+
 If the target system is deeply broken, escalate into the harsher modes from:
 
 - `references/advanced-playbooks.md`
+
+New advanced modes:
+
+- `runaway-agent-loop`
+- `prompt-injection-surface`
+- `multi-agent-orchestration-failure`
 
 ## Framework Expansion
 
@@ -296,6 +314,7 @@ Keep the package self-contained:
 - `references/rubric.md`
 - `references/playbooks.md`
 - `references/advanced-playbooks.md`
+- `references/code-patterns.md`
 - `references/example-report.json`
 - `references/trigger-prompts.md`
 - `references/framework-directions.md`

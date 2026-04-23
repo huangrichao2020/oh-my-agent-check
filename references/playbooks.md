@@ -89,3 +89,76 @@ If you are unsure which to start with:
 3. `wrapper-regression`
 4. `rendering-transport`
 5. `hidden-agent-layers`
+
+## New Playbooks (from production deployments)
+
+These were discovered while integrating this audit skill into production agent platforms
+(Langflow, GenericAgent, OpenCode, superpowers). They complement the original five.
+
+### code-execution-safety
+
+Use when:
+
+- the agent uses Python, shell, or eval/code execution components
+- users can influence prompts that reach code execution
+- the platform runs untrusted or user-directed tasks
+
+Focus:
+
+- sandbox isolation (Docker, WASM, seccomp)
+- resource limits (timeout, memory, CPU)
+- input validation before code execution
+- `exec()`/`eval()`/`subprocess` without guards
+
+See `references/code-patterns.md` §5.
+
+### memory-growth-hazard
+
+Use when:
+
+- the agent runs for extended sessions or handles many turns
+- memory/vector store components accumulate data without cleanup
+- context quality degrades over time
+
+Focus:
+
+- size limits on memory stores
+- TTL and retention policies
+- context truncation strategies
+- session history growth rate
+
+See `references/code-patterns.md` §8.
+
+### observability-gap
+
+Use when:
+
+- production agents have no tracing or callback hooks
+- debugging requires reading raw logs or guessing what happened
+- no way to measure agent performance over time
+
+Focus:
+
+- absence of tracing systems (LangSmith, LangFuse, OpenTelemetry)
+- unlogged LLM calls
+- missing cost and latency metrics
+- no way to replay or reproduce a session
+
+See `references/code-patterns.md` §9.
+
+### state-mutator-safety
+
+Use when:
+
+- the agent writes to files, databases, or vector stores
+- there are no validation steps before write operations
+- corrupt data is persisted and recalled as fact
+
+Focus:
+
+- upstream validation before writes
+- guard nodes for data integrity
+- rollback or undo mechanisms
+- data freshness checks before upsert
+
+See `references/code-patterns.md` §10.

@@ -136,6 +136,13 @@ Core playbooks:
 - `rendering-transport`
 - `hidden-agent-layers`
 
+Production-discovered playbooks (from integrations into Langflow, GenericAgent, OpenCode, superpowers):
+
+- `code-execution-safety`
+- `memory-growth-hazard`
+- `observability-gap`
+- `state-mutator-safety`
+
 Advanced playbooks:
 
 - `false-confidence`
@@ -166,6 +173,7 @@ Use `$oh-my-agent-check` to audit this agent runtime like it is lying about its 
 ## Package Contents
 
 - `SKILL.md`
+- `QUICKSTART.md`
 - `agents/openai.yaml`
 - `assets/pig-icon.svg`
 - `assets/architecture-diagram.svg`
@@ -176,11 +184,13 @@ Use `$oh-my-agent-check` to audit this agent runtime like it is lying about its 
 - `references/rubric.md`
 - `references/playbooks.md`
 - `references/advanced-playbooks.md`
+- `references/code-patterns.md`
 - `references/trigger-prompts.md`
 - `references/example-report.json`
 - `references/framework-directions.md`
 - `references/governance-framework.md`
 - `references/clawhub-publish.md`
+- `scripts/validate_schema.py`
 
 ## Design Principles
 
