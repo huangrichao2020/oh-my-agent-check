@@ -4,8 +4,14 @@
 ![Open Source](https://img.shields.io/badge/Open%20Source-Yes-f6c445?style=flat-square)
 [![English](https://img.shields.io/badge/English-README-111827?style=flat-square)](./README.md)
 [![简体中文](https://img.shields.io/badge/简体中文-README-ff8fb2?style=flat-square)](./README.zh-CN.md)
+[![Synced from agchk](https://img.shields.io/badge/Synced%20from-agchk-5865F2?style=flat-square)](https://github.com/huangrichao2020/agchk)
 
 Brutally strict, JSON-first agent-wrapper audit skill.
+
+**This repository is auto-generated from [agchk](https://github.com/huangrichao2020/agchk)** via CI workflow. All scanners, schemas, and audit logic live in `agchk` — this repo is the Skill package format for AI agents (Claude, OpenClaw, etc.) to consume as a knowledge base.
+
+> **Development happens in `agchk`.** This repo syncs automatically every Monday.
+> For the Python library: `pip install agchk`
 
 ![oh-my-agent-check cover](./assets/cover-banner.svg)
 
