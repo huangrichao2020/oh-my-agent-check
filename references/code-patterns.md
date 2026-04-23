@@ -1,173 +1,132 @@
 # Code-Level Anti-Patterns
 
 Concrete grep-searchable patterns to find agent wrapper failures in source code.
-Run these against any agent codebase during Phase 2 (Evidence collection).
 
-## 1. Hardcoded Secrets
+These patterns are auto-generated from the [agchk](https://github.com/huangrichao2020/agchk) Python scanners.
+Each section lists the regex patterns used by that scanner.
 
-API keys and tokens embedded directly in source or config files instead of using environment variables or secret managers.
-
-```bash
-# OpenAI, Anthropic, and similar API keys
-rg "sk-[A-Za-z0-9]{20,}" --type py --type ts --type json --type yaml
-
-# GitHub personal access tokens
-rg "ghp_[A-Za-z0-9]{36}" --type py --type ts
-
-# GitLab personal access tokens
-rg "glpat-[A-Za-z0-9\-]{20,}" --type py --type ts
-
-# AWS access key IDs
-rg "AKIA[0-9A-Z]{16}" --type py --type ts
-
-# Generic: long base64 strings that look like secrets
-rg "[A-Za-z0-9/+=]{40,}" --type py --type ts --glob "*.json" --glob "*.yaml" --glob "*.yml" --glob "*.env*"
-```
-
-**Why it matters:** Secrets in code leak via git history, logs, and agent output. The model may echo them back to users.
-
-**Fix:** Move to environment variables, secret managers, or encrypted keychains.
-
-## 2. Tool Requirements in Prompt Only (No Code Gate)
-
-The prompt tells the model "you must use tool X" but the code never validates that the tool was actually called.
+## Usage
 
 ```bash
-# Tool enforcement language in prompts and system messages
-rg "must.*tool|required.*call|必须.*工具|always.*use.*tool" --type md --type txt
-
-# Tool call patterns without validation (no result checking after the call)
-rg "tool_call|toolCall|tool_use|function_call" --type py --type ts -A 3 -B 1
+pip install agchk
+agchk /path/to/your/agent/project
 ```
 
-**Why it matters:** The model can answer correctly without using the tool, hallucinate tool usage, or skip the tool when conditions change.
+Or run individual grep scans manually:
 
-**Fix:** Add code-level validation that blocks the response unless the required tool was actually executed with a valid result.
+## Code Execution
 
-## 3. Hidden LLM Calls Outside Main Agent Loop
+**Scanner file**: `agchk/scanners/code_execution.py`
 
-Additional LLM calls in platform code, fallback handlers, or response shapers that run without the user's knowledge.
+**Default severity**: `medium`
 
-```bash
-# Direct LLM API calls in non-agent code
-rg "completion|chat\.create|messages\.create|llm\.invoke|chat\.completions" --type py --type ts
+**Regex patterns**:
 
-# LLM calls in middleware, hooks, or fallback paths
-rg "fallback.*llm|retry.*llm|repair.*prompt|second.*pass|re-?prompt" --type py --type ts
-```
+- `\bexec\s*\(`
+- `\beval\s*\(`
+- `\bcompile\s*\(`
+- `\bos\.system\s*\(`
+- `\bnew\s+Function\s*\(`
+- `subprocess\..*shell\s*=\s*True`
+- `(?:sandbox|docker|container|seccomp|chroot|\bvm\b|`
+- `subprocess.*timeout|resource\.setrlimit|jail|`
+- `nsjail|firejail|gvisor|kata)`
+- `: `
 
-**Why it matters:** Hidden LLM passes can silently mutate answers, create infinite retry loops, or run up costs without visibility.
+## Hidden Llm
 
-**Fix:** Make all LLM calls explicit with contracts, log them, and expose them in observability traces.
+**Scanner file**: `agchk/scanners/hidden_llm.py`
 
-## 4. Memory Admission Without User Priority
+**Default severity**: `high`
 
-The agent's own monologue or assertions can become persistent memory, while user corrections have no higher priority.
+**Regex patterns**:
 
-```bash
-# Memory persistence from agent-generated content
-rg "memory.*admit|long.*term.*update|persist.*memory|save.*to.*memory" --type py --type ts
+- `(?:chat\.create|messages\.create|completions\.create|llm\.invoke|`
+- `fallback.*llm|repair.*prompt|second.*pass|re-prompt|`
+- `openai\.chat|anthropic\.messages|vertexai\.predict|`
+- `bedrock.*invoke|model\.generate|completion\.create)`
+- `(?:agent.*loop|main.*loop|orchestrat|chain.*run|agent.*run|`
+- `agent_executor|react.*loop|tool.*loop|cycle.*run)`
+- `: `
+- `: `
 
-# Memory retrieval without freshness checks
-rg "retrieve.*memory|load.*memory|recall.*memory" --type py --type ts -A 2
-```
+## Memory Patterns
 
-**Why it matters:** The agent can pollute its own knowledge base with incorrect assertions, and user corrections get overwritten.
+**Scanner file**: `agchk/scanners/memory_patterns.py`
 
-**Fix:** User corrections > agent assertions in memory priority. Add TTL and freshness timestamps to memory entries.
+**Default severity**: `low`
 
-## 5. Unrestricted Code Execution
+**Regex patterns**:
 
-Code execution components (Python, shell, eval) without sandboxing, resource limits, or input validation.
+- `(?:memory.*admit|long.?term.*update|persist.*memory|save.*to.*memory|`
+- `memory.*store|write.*memory|commit.*memory|memory.*insert)`
+- `(?:add.*memory|upsert.*vector|append.*context|history.*append|`
+- `messages.*append|memory.*push|context.*grow|buffer.*append|`
+- `memory.*add|vector.*insert|embeddings.*store)`
+- `(?:max_|limit|ttl|expire|k=|top_|threshold|trim|truncate|`
+- `max_|_max|capacity|bounded|evict|prune|retention|window_size)`
+- `: `
+- `: `
 
-```bash
-# Python exec/eval without guards
-rg "exec\(|eval\(|compile\(" --type py -n
+## Observability
 
-# Subprocess without timeout or shell=True
-rg "subprocess\.(run|Popen|call).*shell\s*=\s*True" --type py -n
-rg "os\.system\(" --type py -n
+**Scanner file**: `agchk/scanners/observability.py`
 
-# JavaScript eval or Function constructor
-rg "eval\(|new Function\(|setTimeout\(.*string" --type ts --type js -n
-```
+**Default severity**: `medium`
 
-**Why it matters:** Unrestricted code execution allows the agent (or a user through prompt injection) to run arbitrary commands on the host system.
+**Regex patterns**:
 
-**Fix:** Use sandboxed execution environments (Docker, WebAssembly, seccomp filters) with resource limits and input validation.
+- `(?:langsmith|langfuse|opentelemetry|arize|phoenix|`
+- `callback.*handler|tracer|telemetry|observ|`
+- `cost.*track|token.*count|latency.*track|`
+- `span.*create|trace.*start|metric.*record|`
+- `promptlayer|helicone|braintrust|smith\.ai|`
+- `langsmith\.run|langfuse\.track|otel\.|open telemetry)`
+- `: `
 
-## 6. Missing Error Handling on Agent Paths
+## Output Pipeline
 
-Agent nodes or tool calls without fallback, retry, or error reporting paths.
+**Scanner file**: `agchk/scanners/output_pipeline.py`
 
-```bash
-# Tool calls without try/except or error handling
-rg "call_tool|invoke_tool|run_tool" --type py --type ts -A 5 | rg -v "try|except|catch|error|fallback"
+**Default severity**: `medium`
 
-# Agent loops without max iteration guards
-rg "while.*agent|for.*turn|agent.*loop" --type py --type ts -A 3 | rg -v "max_|limit|break|timeout"
-```
+**Regex patterns**:
 
-**Why it matters:** Without error handling, a single tool failure can cause the entire agent to silently stop, retry infinitely, or produce wrong results with high confidence.
+- `(?:mutate.*response|rewrite.*output|transform.*answer|shape.*response|`
+- `post.?process.*llm|stream.*chunk|yield.*token|format.*response|`
+- `response.*filter|output.*sanitize|strip.*tag|clean.*response|`
+- `response.*hook|after.*llm|post.*llm)`
+- `(?:buffer|assemble|reconstruct|join|concat|merge.*stream|`
+- `chunk.*buffer|response.*build|output.*assemble|token.*stream)`
+- `: `
 
-**Fix:** Add explicit error handlers, max iteration limits, and circuit breakers on all agent loops.
+## Secrets
 
-## 7. Output Mutation in Delivery Layer
+**Scanner file**: `agchk/scanners/secrets.py`
 
-The answer generated by the agent is transformed, rewritten, or filtered before reaching the user.
+**Default severity**: `critical`
 
-```bash
-# Response transformation
-rg "mutate.*response|rewrite.*output|transform.*answer|shape.*response|post.*process.*llm" --type py --type ts
+**Regex patterns**:
 
-# Streaming that may fragment or corrupt answers
-rg "stream.*chunk|yield.*token|token.*by.*token" --type py --type ts -A 2 | rg -v "buffer|assemble|reconstruct"
-```
+- `sk-[a-zA-Z0-9]{20,}`
+- `ghp_[a-zA-Z0-9]{36}`
+- `glpat-[a-zA-Z0-9]{20,}`
+- `AKIA[0-9A-Z]{16}`
+- `(?i)(?:api[_-]?key|apikey|secret[_-]?key|token)\s*[=:]\s*['\`
+- `(?:example|your_|placeholder|xxx|test)`
+- `: `
 
-**Why it matters:** The internal answer may be correct, but the delivery layer corrupts it — the user sees a broken version while logs show the right answer.
+## Tool Enforcement
 
-**Fix:** Minimize transformations in the delivery layer. If transformation is needed, make it deterministic and loggable.
+**Scanner file**: `agchk/scanners/tool_enforcement.py`
 
-## 8. Unbounded Memory/Context Growth
+**Default severity**: `high`
 
-Memory, vector store, or context accumulation components without size limits, TTL, or retention policies.
+**Regex patterns**:
 
-```bash
-# Memory/vector stores without limits
-rg "add.*memory|upsert.*vector|append.*context" --type py --type ts -A 3 | rg -v "max_|limit|ttl|expire|k=|top_|threshold|trim"
-
-# Session history without truncation
-rg "history.*append|messages.*append|context.*grow" --type py --type ts -A 2 | rg -v "truncate|slice|\[\-N:\]|max_"
-```
-
-**Why it matters:** Without limits, memory grows until it exhausts the context window, degrading response quality and increasing costs.
-
-**Fix:** Set explicit size limits, TTL, and retention policies on all memory and context components.
-
-## 9. Missing Observability/Tracing
-
-No tracing, logging, or callback hooks for production debugging.
-
-```bash
-# Check for observability imports
-rg "langsmith|langfuse|opentelemetry|callback|tracer|observ" --type py --type ts
-
-# If the above returns nothing, the agent has no observability
-```
-
-**Why it matters:** Without observability, you cannot debug production failures, measure performance, or prove compliance.
-
-**Fix:** Add at least one tracing/callback system (LangSmith, LangFuse, OpenTelemetry) to every production agent.
-
-## 10. State Mutators Without Upstream Validation
-
-Components that write to persistent state (files, databases, vector stores) without upstream validation or guard nodes.
-
-```bash
-# Write operations
-rg "file.*write|db.*insert|vector.*upsert|database.*save" --type py --type ts -B 5 | rg -v "validate|guard|filter|check|verify"
-```
-
-**Why it matters:** Corrupt data gets persisted and then recalled as fact, poisoning future turns.
-
-**Fix:** Add validation or guard nodes upstream of any state-mutating operation.
+- `(?:must use tool|required call|always use|tool is required|`
+- `required to call|you must call|mandatory tool use)`
+- `(?:tool_call|toolCall|tool_use|function_call|tool_choice|use_tool)`
+- `(?:assert |if not |raise |\.validate|\.check|verify|guard|enforce|sanity_check)`
+- `: `
+- `: `

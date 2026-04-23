@@ -1,214 +1,158 @@
-# oh-my-agent-check
+# agchk
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-ff6a8b.svg?style=flat-square)](./LICENSE)
-![Open Source](https://img.shields.io/badge/Open%20Source-Yes-f6c445?style=flat-square)
-[![English](https://img.shields.io/badge/English-README-111827?style=flat-square)](./README.md)
-[![简体中文](https://img.shields.io/badge/简体中文-README-ff8fb2?style=flat-square)](./README.zh-CN.md)
-[![Synced from agchk](https://img.shields.io/badge/Synced%20from-agchk-5865F2?style=flat-square)](https://github.com/huangrichao2020/agchk)
+Audit the architecture and health of any AI agent system or LLM-integrated project.
 
-Brutally strict, JSON-first agent-wrapper audit skill.
+**The base model rarely fails. The wrapper architecture corrupts good answers into bad behavior.**
 
-**This repository is auto-generated from [agchk](https://github.com/huangrichao2020/agchk)** via CI workflow. All scanners, schemas, and audit logic live in `agchk` — this repo is the Skill package format for AI agents (Claude, OpenClaw, etc.) to consume as a knowledge base.
-
-> **Development happens in `agchk`.** This repo syncs automatically every Monday.
-> For the Python library: `pip install agchk`
-
-![oh-my-agent-check cover](./assets/cover-banner.svg)
-
-This is not a "nice review" skill. It is a **no-mercy diagnostic instrument** for agent systems that:
-
-- sound smarter than they are
-- hide failures behind extra layers
-- mutate good evidence into bad answers
-- blame the base model when the wrapper is the real problem
-
-## Why This Exists
-
-Many agent systems do not fail because the model is bad.
-
-They fail because the wrapper becomes a stack of self-sabotage:
-
-- system prompt
-- session history
-- long-term memory
-- distillation
-- active recall
-- tool selection
-- tool execution
-- tool interpretation
-- answer shaping
-- platform rendering
-- hidden repair agents
-- stale persistence
-
-This skill is designed to inspect that whole stack with evidence instead of vibes.
-
-## Architecture
-
-![oh-my-agent-check architecture](./assets/architecture-diagram.svg)
-
-The architecture is simple on purpose:
-
-1. Start with symptoms, suspicion, and historical evidence.
-2. Convert the audit into structured artifacts instead of freestyle prose.
-3. Render a severity-ranked verdict that points at wrapper failures, not excuses.
-
-## Demo Output
-
-![oh-my-agent-check demo report](./assets/demo-report.svg)
-
-This is the tone and shape the skill is aiming for:
-
-- findings first
-- contamination path second
-- code-first fix order third
-
-## How To Use
-
-![how to use oh-my-agent-check](./assets/how-to-use.svg)
-
-The short version:
-
-1. Point it at the failure window, not just the current clean state.
-2. Force the JSON artifact chain before any prose verdict.
-3. Demand a fix order that hardens code paths before polishing prompts.
-
-## Why It Hits Harder
-
-![before after comparison](./assets/before-after.svg)
-
-This skill is meant to feel different from a normal architecture review:
-
-- less hand-wavy
-- less polite about broken systems
-- more interested in contamination paths than in generic best practices
-- more likely to tell you the wrapper is the problem, not the model
-
-## Case Snapshots
-
-These are the kinds of failures the skill is designed to expose without flinching.
-
-### 1. Stale evidence replay
-
-![stale evidence replay case](./assets/case-hermes-stale-evidence.svg)
-
-This catches wrappers that keep answering with old facts because history, memory, or persistence got replayed as if it were a fresh probe.
-
-### 2. Hidden repair brain
-
-![hidden repair brain case](./assets/case-hidden-repair-brain.svg)
-
-This catches platforms that secretly run a second prompt or LLM pass and quietly mutate an answer during fallback or delivery.
-
-## What It Audits
-
-Any agent system itself:
-
-- CLI coding agents
-- long-running assistant runtimes
-- browser agents
-- wrapper-based copilots
-- memory-heavy assistants
-- tool-using autonomous loops
-
-## Questions It Is Built To Answer
-
-- Why does this wrapped agent behave worse than the base model?
-- Which layer first corrupted the answer?
-- Which layer amplified the corruption?
-- Where is the hidden prompt conflict?
-- Which memory path is polluting new turns?
-- Which fallback loop is mutating correct answers into bad ones?
-- Which fixes must be code-enforced instead of prompt-enforced?
-
-## What It Produces
-
-Internally, the audit moves through four structured artifacts:
-
-1. `agent_check_scope.json`
-2. `evidence_pack.json`
-3. `failure_map.json`
-4. `agent_check_report.json`
-
-The final human-readable answer should be rendered from the structured report instead of improvised from memory.
-
-## Audit Modes
-
-Core playbooks:
-
-- `wrapper-regression`
-- `memory-contamination`
-- `tool-discipline`
-- `rendering-transport`
-- `hidden-agent-layers`
-
-Production-discovered playbooks (from integrations into Langflow, GenericAgent, OpenCode, superpowers):
-
-- `code-execution-safety`
-- `memory-growth-hazard`
-- `observability-gap`
-- `state-mutator-safety`
-
-Advanced playbooks:
-
-- `false-confidence`
-- `stale-evidence-replay`
-- `fake-agentic-depth`
-- `hidden-repair-brain`
-- `memory-poisoning`
-- `protocol-decay`
-
-See:
-
-- `references/playbooks.md`
-- `references/advanced-playbooks.md`
-- `references/trigger-prompts.md`
-
-## What Makes It Different
-
-- It does not default to blaming the base model.
-- It does not let current cleanliness erase historical incidents.
-- It does not treat markdown prose as a trustworthy internal protocol.
-- It does not accept "must use tool" as prompt text if code never enforces it.
-- It prefers wrapper causality over decorative summaries.
-
-## Example Prompt
-
-Use `$oh-my-agent-check` to audit this agent runtime like it is lying about its own health. Focus on wrapper-regression and tool-discipline, inspect yesterday's incidents instead of only current code, and give me a severity-ranked diagnosis with code-enforced fixes first.
-
-## Package Contents
-
-- `SKILL.md`
-- `QUICKSTART.md`
-- `agents/openai.yaml`
-- `assets/pig-icon.svg`
-- `assets/architecture-diagram.svg`
-- `assets/demo-report.svg`
-- `assets/how-to-use.svg`
-- `assets/before-after.svg`
-- `references/report-schema.json`
-- `references/rubric.md`
-- `references/playbooks.md`
-- `references/advanced-playbooks.md`
-- `references/code-patterns.md`
-- `references/trigger-prompts.md`
-- `references/example-report.json`
-- `references/framework-directions.md`
-- `references/governance-framework.md`
-- `references/clawhub-publish.md`
-- `scripts/validate_schema.py`
-
-## Design Principles
-
-This package is intentionally:
-
-- JSON-first
-- evidence-backed
-- hostile to hand-wavy explanations
-- focused on wrapper architecture, not user-task completion
-- biased toward code-control over prompt-control
-- optimized for uncovering hidden failure paths, not preserving feelings
-
-## Publishing Notes
-
-This repository is prepared as a standalone skill package suitable for publishing to GitHub and packaging for distribution channels that accept Codex-style skill folders.
+```bash
+pip install agchk
+agchk /path/to/your/agent/project
+```
+
+## What It Does
+
+`agchk` scans any Python/TypeScript/JavaScript codebase for 7 categories of agent architecture failures:
+
+| # | Scanner | Severity | What It Catches |
+|---|---------|----------|-----------------|
+| 1 | Hardcoded Secrets | critical | API keys, tokens, credentials in source code |
+| 2 | Tool Enforcement Gap | high | "Must use tool X" in prompt but no code validation |
+| 3 | Hidden LLM Calls | high | Secret second-pass LLM calls in fallback/repair loops |
+| 4 | Unrestricted Code Execution | critical | exec(), eval(), subprocess(shell=True) without sandbox |
+| 5 | Memory Pattern Issues | medium | Unbounded context growth, missing TTL, no retention policy |
+| 6 | Output Pipeline Mutation | medium | Response transformation corrupting correct answers |
+| 7 | Missing Observability | medium | No tracing, logging, or cost tracking |
+
+## Quick Start
+
+```bash
+# Install
+pip install agchk
+
+# Audit any agent project
+agchk /path/to/your/langchain/project
+
+# Generate human-readable report
+agchk --report audit_results.json
+```
+
+## Python API
+
+```python
+from agchk import run_audit, generate_report
+
+# Run full audit
+results = run_audit("/path/to/your/agent/project")
+
+# Generate markdown report
+markdown = generate_report(results)
+
+# Save to file
+generate_report(results, output_file="audit_report.md")
+
+# Validate results against JSON schema
+from agchk.schema import validate_report
+errors = validate_report(results)
+```
+
+## Programmatic Scanner Access
+
+```python
+from agchk.scanners import scan_secrets, scan_code_execution
+from pathlib import Path
+
+findings = scan_secrets(Path("/path/to/project"))
+for f in findings:
+    print(f"[{f['severity'].upper()}] {f['title']} at {f['evidence_refs']}")
+```
+
+## Example Output
+
+```
+🔍 Agent Architecture Audit
+   Target: /Users/me/projects/my-agent
+   Started: 2026-04-24 14:32:01
+
+  Scanning: Hardcoded Secrets...
+  Scanning: Tool Enforcement Gap...
+  Scanning: Hidden LLM Calls...
+  Scanning: Unrestricted Code Execution...
+  Scanning: Memory Pattern Issues...
+  Scanning: Output Pipeline Mutation...
+  Scanning: Missing Observability...
+
+──────────────────────────────────────────
+✅ Audit complete. Found 5 issues in 0.3s:
+   CRITICAL: 1
+   HIGH:     2
+   MEDIUM:   2
+   LOW:      0
+   Overall:  critical_risk
+
+📋 Results: audit_results.json
+📄 Report: audit_report.md
+```
+
+## The 12-Layer Stack
+
+Every agent system has these layers. `agchk` audits all of them:
+
+| # | Layer | What Goes Wrong |
+|---|-------|----------------|
+| 1 | System prompt | Conflicting instructions, instruction bloat |
+| 2 | Session history | Stale context from previous turns |
+| 3 | Long-term memory | Pollution across sessions |
+| 4 | Distillation | Compressed artifacts re-entering as pseudo-facts |
+| 5 | Active recall | Redundant re-summary layers wasting context |
+| 6 | Tool selection | Wrong tool routing, model skips required tools |
+| 7 | Tool execution | Hallucinated execution — claims to call but doesn't |
+| 8 | Tool interpretation | Misread or ignored tool output |
+| 9 | Answer shaping | Format corruption in final response |
+| 10 | Platform rendering | UI/API/CLI mutates valid answers |
+| 11 | Hidden repair loops | Silent fallback/retry agents running second LLM pass |
+| 12 | Persistence | Expired state or cached artifacts reused as live evidence |
+
+## Fix Strategy
+
+Default fix order (code-first, not prompt-first):
+
+1. **Code-gate tool requirements** — enforce in code, not just prompt text
+2. **Remove or narrow hidden repair agents** — make fallback explicit with contracts
+3. **Reduce context duplication** — same info through prompt + history + memory + distillation
+4. **Tighten memory admission** — user corrections > agent assertions
+5. **Tighten distillation triggers** — don't compress what shouldn't be compressed
+6. **Reduce rendering mutation** — pass-through, don't transform
+7. **Convert to typed JSON envelopes** — structured internal flow, not freeform prose
+
+## Anti-Patterns to Avoid
+
+- ❌ Saying "the model is weak" without falsifying the wrapper first
+- ❌ Saying "memory is bad" without showing the contamination path
+- ❌ Letting a clean current state erase a dirty historical incident
+- ❌ Treating markdown prose as a trustworthy internal protocol
+- ❌ Accepting "must use tool" in prompt text when code never enforces it
+
+## Project Structure
+
+```
+agchk/                          ← 唯一源码库 (single source of truth)
+├── agchk/
+│   ├── scanners/               ← 7 个反模式扫描器
+│   ├── audit.py                ← 主编排器
+│   ├── report.py               ← 报告生成
+│   ├── schema.py               ← JSON Schema 验证
+│   ├── cli.py                  ← 命令行入口
+│   └── schema.json             ← 正式报告 Schema
+├── scripts/
+│   └── gen-skill.py            ← 一键生成 oh-my-agent-check
+└── output/
+    └── oh-my-agent-check/      ← 自动生成的 Skill 包
+         ├── SKILL.md
+         ├── references/
+         └── README.md
+```
+
+## Related
+
+- **oh-my-agent-check**: https://github.com/huangrichao2020/oh-my-agent-check — AI agent Skill 包格式（由 agchk 自动生成）
+- **PyPI**: https://pypi.org/project/agchk/
